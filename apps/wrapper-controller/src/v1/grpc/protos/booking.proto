@@ -1,0 +1,43 @@
+syntax = "proto3";
+
+package vn.grpc.nodejs.booking.service;
+
+service BookingService {
+  rpc getBooking (DetailDTO) returns (BaseResponse) {}
+  
+}
+
+message DetailDTO {
+  string id = 1;
+}
+
+
+message BaseResponse {
+  int32 status = 1;
+  string message = 2;
+  BookingTemplate data = 3;
+}
+
+message RateAmount {
+  double amount = 1;
+  string currency = 2;
+}
+
+message BookingTemplate {
+  string confirmation_no = 1;
+  string resv_name_id = 2;
+  RateAmount rateamount = 3;
+  string roomtype = 4;
+  string ratecode = 5;
+  string arrival = 6;
+  string departure = 7;
+  double booking_balance = 8;
+  int32 adults = 9;
+  int32 children = 10;
+  string guarantee = 11;
+  string method_payment = 12;
+  string first_name = 13;
+  string last_name = 14;
+  string title = 15;
+  string booking_created_date = 16;
+}

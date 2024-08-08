@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+package vn.grpc.nodejs.payment.service;
+
+service PaymentService {
+  rpc  createOrder (CreateorderDTO) returns (BaseResponse) {}
+  rpc checkOrder (CheckOrderDTO) returns (BaseResponse) {}
+  
+}
+
+message CreateorderDTO {
+  string id = 1;
+}
+
+message CheckOrderDTO {
+  string id = 1;
+}
+
+message Empty{
+
+}
+
+message BaseResponse {
+  int32 status = 1;
+  string message = 2;
+  CreateOrderResponse data = 3;
+}
+
+message CreateOrderResponse{
+  string checkout_url  = 1;
+}
