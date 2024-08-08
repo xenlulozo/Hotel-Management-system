@@ -1,17 +1,16 @@
-import { Body, Controller, Get, HttpStatus, Post, Req, Res, UseGuards } from '@nestjs/common';
-import { TokenData } from 'apps/users/src/common/interface/toeken.interface';
-import { Response, Request } from 'express';
-import { BaseResponse } from '../../response/base.response.common';
-import { GrpcClientService } from '../grpc/grpc.client.service';
-import { SignUpDTO } from '../grpc/protos/user';
-import { GoogleLoginDTO, LoginDTO } from '../grpc/protos/user-auth';
+import { Body, Controller, Get, HttpStatus, Post, Req, Res, UseFilters, UseGuards, UsePipes, ValidationPipe } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { TokenData } from 'apps/users/src/common/interface/toeken.interface';
+import { Response } from 'express';
 import { SignInGoogleSwagger, SignInSwagger } from '../../swagger/dto/sign-in.dto.response';
 import { BaseResponseSwagger } from '../../swagger/response/base-response.response';
+import { GrpcClientService } from '../grpc/grpc.client.service';
+import { HttpExceptionFilter } from '../../exception/http.exception';
 
 @Controller({ path: 'user' })
 @ApiTags('Users')
+@UseFilters(new HttpExceptionFilter())
 export class UserController {
   constructor(private readonly grpcClientService: GrpcClientService) {}
 
@@ -21,7 +20,7 @@ export class UserController {
     type: BaseResponseSwagger
   })
   @ApiOperation({ summary: 'use demo create basic_token and jwt ' })
-  async signUp(@Res() res: Response, @Body() body: SignUpDTO) {
+  async signUp(@Res() res: Response, @Body() body: SignInSwagger) {
     console.log('🚀 ~ UserController ~ signUp ~ body:', body);
 
     const data = await this.grpcClientService.signUp(body);
@@ -65,7 +64,7 @@ export class UserController {
   })
   @ApiOperation({ summary: 'Login by email, password, after login you can call booking api, pay with token in cookie' })
   @ApiBody({ type: SignInSwagger })
-  async signIn(@Res() res: Response, @Body() body: SignUpDTO) {
+  async signIn(@Res() res: Response, @Body() body: SignInSwagger) {
     console.log('🚀 ~ UserController ~ signUp ~ body:', body);
 
     const data = await this.grpcClientService.signIn(body);
@@ -81,7 +80,7 @@ export class UserController {
   })
   @ApiOperation({ summary: 'Login by email, password, after login you can call booking api, pay with token in cookie' })
   @ApiBody({ type: SignInGoogleSwagger })
-  async signInWithGoogle(@Res() res: Response, @Body() body: GoogleLoginDTO) {
+  async signInWithGoogle(@Res() res: Response, @Body() body: SignInGoogleSwagger) {
     // user email, accessToken is obtained after redirected
     console.log('🚀 ~ UserController ~ signUp ~ body:', body);
 

@@ -22,28 +22,46 @@
   <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
   [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
 
-## Description
-
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
-
 ## Installation
 
 ```bash
 $ npm install
 ```
 
+## Summary
+
+The design chosen for this project is a microservice architecture, which includes an intermediary service(wrapper-controller) that connects with the gateway and services within the cluster. The system comprises three services: User, Booking, and Payment. These services communicate with each other via the gRPC protocol.Details will be elaborated further in the following link: https://docs.google.com/document/d/11OvjpoG3NCV97cmNkNBUFMkK9JKfnEqYR5IVoozA7dQ/edit?usp=sharing
+
+## Tectechnology used
+
+- Nestjs
+- OAuth 2.0
+- Axios
+- JSON Web Tokens
+- PostgreSQL
+- gRPC
+
 ## Running the app
 
 ```bash
-# development
-$ npm run start
 
-# watch mode
+# use to run wrapper-controller
 $ npm run start:dev
 
-# production mode
-$ npm run start:prod
+# use to run user
+$ npm run start:dev users
+
+# use to run payment
+$ npm run start:dev payment
+
+# use to run booking
+$ npm run start:dev bookings
+
 ```
+
+## Swagger UI
+
+### http://localhost:3000/api
 
 ## Test
 
@@ -59,15 +77,3 @@ $ npm run test:cov
 ```
 
 ## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](LICENSE).

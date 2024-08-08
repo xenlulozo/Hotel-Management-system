@@ -5,11 +5,11 @@
 // source: apps/wrapper-controller/src/v1/grpc/protos/user.proto
 
 /* eslint-disable */
-import { Metadata } from "@grpc/grpc-js";
-import { GrpcMethod, GrpcStreamMethod } from "@nestjs/microservices";
-import { Observable } from "rxjs";
+import { Metadata } from '@grpc/grpc-js';
+import { GrpcMethod, GrpcStreamMethod } from '@nestjs/microservices';
+import { Observable } from 'rxjs';
 
-export const protobufPackage = "vn.grpc.nodejs.user.service";
+export const protobufPackage = 'vn.grpc.nodejs.user.service';
 
 export interface SignUpDTO {
   email: string;
@@ -26,7 +26,7 @@ export interface BasicToken {
   basicToken: string;
 }
 
-export const VN_GRPC_NODEJS_USER_SERVICE_PACKAGE_NAME = "vn.grpc.nodejs.user.service";
+export const VN_GRPC_NODEJS_USER_SERVICE_PACKAGE_NAME = 'vn.grpc.nodejs.user.service';
 
 export interface UserServiceClient {
   signUp(request: SignUpDTO, metadata?: Metadata): Observable<BaseResponse>;
@@ -38,17 +38,17 @@ export interface UserServiceController {
 
 export function UserServiceControllerMethods() {
   return function (constructor: Function) {
-    const grpcMethods: string[] = ["signUp"];
+    const grpcMethods: string[] = ['signUp'];
     for (const method of grpcMethods) {
       const descriptor: any = Reflect.getOwnPropertyDescriptor(constructor.prototype, method);
-      GrpcMethod("UserService", method)(constructor.prototype[method], method, descriptor);
+      GrpcMethod('UserService', method)(constructor.prototype[method], method, descriptor);
     }
     const grpcStreamMethods: string[] = [];
     for (const method of grpcStreamMethods) {
       const descriptor: any = Reflect.getOwnPropertyDescriptor(constructor.prototype, method);
-      GrpcStreamMethod("UserService", method)(constructor.prototype[method], method, descriptor);
+      GrpcStreamMethod('UserService', method)(constructor.prototype[method], method, descriptor);
     }
   };
 }
 
-export const USER_SERVICE_NAME = "UserService";
+export const USER_SERVICE_NAME = 'UserService';

@@ -8,10 +8,10 @@ export class HttpExceptionFilter implements ExceptionFilter {
     const ctx = host.switchToHttp();
     const response = ctx.getResponse<Response>();
     const status = exception.getStatus();
-
+    const message = exception.getResponse() as object as any;
     response.status(status == HttpStatus.UNAUTHORIZED ? HttpStatus.UNAUTHORIZED : HttpStatus.OK).json({
       statusCode: status,
-      message: exception.getResponse().toString(),
+      message: message.message,
       data: null
     });
   }

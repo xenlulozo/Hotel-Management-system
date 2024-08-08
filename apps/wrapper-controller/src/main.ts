@@ -3,6 +3,7 @@ import { AppModule } from './app.module';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import * as cookieParser from 'cookie-parser';
 import { config } from 'dotenv';
+import { ValidationPipe } from './exception/validation.pipe';
 
 config();
 
@@ -14,6 +15,7 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);
   app.use(cookieParser());
+  app.useGlobalPipes(new ValidationPipe());
 
   await app.listen(process.env.SERVICE_WRAPPER_PORT);
   console.log('APP RUNNING IN PORT :', process.env.SERVICE_WRAPPER_PORT);
